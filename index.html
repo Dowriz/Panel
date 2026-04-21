@@ -1,173 +1,528 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Solidum • Panel</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Solidum • панель подписок</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      min-height: 100vh;
-      background: #03060c;
-      background-image: radial-gradient(circle at 15% 10%, #0a1120 0%, #010307 100%);
-      font-family: 'Inter', 'Segoe UI', system-ui, 'Poppins', sans-serif;
-      padding: 16px;
-    }
+        body {
+            min-height: 100vh;
+            background: #03060c;
+            background-image: radial-gradient(circle at 15% 10%, #0a1120 0%, #010307 100%);
+            font-family: 'Inter', 'Segoe UI', system-ui, 'Poppins', sans-serif;
+        }
 
-    .app {
-      max-width: 260px;
-      width: 100%;
-    }
+        /* экран входа */
+        .login-screen, .dashboard-screen {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-    .brand {
-      margin-bottom: 20px;
-    }
+        .login-screen {
+            background: #03060c;
+            background-image: radial-gradient(circle at 15% 10%, #0a1120 0%, #010307 100%);
+        }
 
-    .brand-panel {
-      font-size: 9px;
-      font-weight: 500;
-      letter-spacing: 1.8px;
-      text-transform: uppercase;
-      color: #7a89a0;
-      text-shadow: 0 0 3px #2a4568;
-      margin-bottom: 4px;
-    }
+        .login-container {
+            max-width: 340px;
+            width: 100%;
+        }
 
-    .brand-solidum {
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      color: #bedcff;
-      text-shadow: 0 0 10px #2f7eff, 0 0 3px #5ea6ff;
-      line-height: 1.05;
-    }
+        .brand {
+            margin-bottom: 32px;
+            text-align: center;
+        }
 
-    .cards {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+        .brand-panel {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 2.2px;
+            text-transform: uppercase;
+            color: #7a89a0;
+            text-shadow: 0 0 4px #2a4568;
+            margin-bottom: 5px;
+        }
 
-    .card {
-      background: rgba(4, 12, 22, 0.9);
-      backdrop-filter: blur(2px);
-      border-radius: 20px;
-      padding: 9px 12px;
-      transition: all 0.2s ease;
-      border: 1px solid rgba(48, 140, 255, 0.35);
-    }
+        .brand-solidum {
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: #bedcff;
+            text-shadow: 0 0 12px #2f7eff, 0 0 4px #5ea6ff;
+            line-height: 1.05;
+        }
 
-    .card:first-of-type {
-      box-shadow: 0 0 8px rgba(48, 160, 255, 0.5), 0 2px 8px rgba(0,0,0,0.5);
-      border-color: rgba(48, 180, 255, 0.7);
-    }
+        .login-card {
+            background: rgba(4, 12, 22, 0.9);
+            backdrop-filter: blur(2px);
+            border-radius: 28px;
+            padding: 28px 22px;
+            border: 1px solid rgba(48, 140, 255, 0.4);
+            box-shadow: 0 0 16px rgba(48, 140, 255, 0.3);
+        }
 
-    .card-label {
-      font-size: 8px;
-      font-weight: 600;
-      letter-spacing: 0.7px;
-      text-transform: uppercase;
-      color: #8f9fb5;
-      text-shadow: 0 0 2px #2a4a70;
-      margin-bottom: 5px;
-    }
+        .login-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #c0dcff;
+            text-shadow: 0 0 4px #2f7eff;
+            margin-bottom: 24px;
+            text-align: center;
+        }
 
-    .card-value {
-      font-size: 19px;
-      font-weight: 700;
-      letter-spacing: -0.2px;
-      font-family: 'JetBrains Mono', 'Fira Code', monospace;
-      line-height: 1.2;
-    }
+        .input-group {
+            margin-bottom: 20px;
+        }
 
-    .card:first-of-type .card-value {
-      color: #7ad0ff;
-      text-shadow: 0 0 6px #1e88ff, 0 0 2px #3a9eff;
-    }
+        .input-group input {
+            width: 100%;
+            background: rgba(10, 20, 35, 0.8);
+            border: 1px solid rgba(48, 140, 255, 0.5);
+            border-radius: 18px;
+            padding: 14px 18px;
+            font-size: 16px;
+            color: #e0f0ff;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.2s;
+        }
 
-    .card:last-child {
-      transition: box-shadow 0.2s, border-color 0.2s;
-    }
+        .input-group input:focus {
+            border-color: #3a9eff;
+            box-shadow: 0 0 10px rgba(58, 158, 255, 0.4);
+        }
 
-    .status-green {
-      box-shadow: 0 0 8px rgba(70, 255, 120, 0.5), 0 2px 8px rgba(0,0,0,0.5);
-      border-color: rgba(70, 255, 120, 0.7);
-    }
+        .input-group input::placeholder {
+            color: #5a6e8a;
+        }
 
-    .status-green .card-value {
-      color: #c2ffcc;
-      text-shadow: 0 0 7px #3eff72, 0 0 2px #56ff7e;
-    }
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #1a4a8a, #0e2a50);
+            border: 1px solid rgba(72, 160, 255, 0.6);
+            border-radius: 24px;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #d0f0ff;
+            text-shadow: 0 0 3px #2f7eff;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
 
-    .status-green .card-label {
-      color: #b8ffc4;
-      text-shadow: 0 0 3px #2eff66;
-    }
+        .login-btn:hover {
+            background: linear-gradient(135deg, #2a5a9a, #1a3a6a);
+            box-shadow: 0 0 12px rgba(48, 140, 255, 0.5);
+            border-color: #5ab0ff;
+        }
 
-    .status-red {
-      box-shadow: 0 0 8px rgba(255, 60, 60, 0.6), 0 2px 8px rgba(0,0,0,0.5);
-      border-color: rgba(255, 70, 70, 0.8);
-    }
+        .error-msg {
+            color: #ff8a8a;
+            text-shadow: 0 0 3px #ff3a3a;
+            font-size: 12px;
+            text-align: center;
+            margin-top: 16px;
+            min-height: 32px;
+        }
 
-    .status-red .card-value {
-      color: #ffb3b3;
-      text-shadow: 0 0 8px #ff2a2a, 0 0 2px #ff5a5a;
-    }
+        /* дашборд */
+        .dashboard-screen {
+            display: none;
+        }
 
-    .status-red .card-label {
-      color: #ffb0b0;
-      text-shadow: 0 0 4px #ff3333;
-    }
-  </style>
+        .dashboard-container {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .dashboard-brand {
+            flex: 1;
+        }
+
+        .dashboard-brand .brand-panel {
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+
+        .dashboard-brand .brand-solidum {
+            font-size: 34px;
+        }
+
+        .logout-btn {
+            background: rgba(20, 40, 65, 0.8);
+            border: 1px solid rgba(80, 140, 200, 0.5);
+            border-radius: 40px;
+            padding: 8px 18px;
+            color: #b0d0ff;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .logout-btn:hover {
+            background: rgba(40, 70, 110, 0.9);
+            border-color: #5a9eff;
+            box-shadow: 0 0 8px rgba(80, 160, 255, 0.3);
+        }
+
+        .subscriptions-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .sub-card {
+            background: rgba(4, 12, 22, 0.85);
+            backdrop-filter: blur(2px);
+            border-radius: 24px;
+            padding: 14px 18px;
+            border: 1px solid rgba(48, 140, 255, 0.35);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sub-card:hover {
+            transform: translateX(4px);
+            border-color: rgba(80, 170, 255, 0.7);
+            box-shadow: 0 0 12px rgba(48, 140, 255, 0.4);
+        }
+
+        .sub-code {
+            font-size: 24px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            color: #7ad0ff;
+            text-shadow: 0 0 6px #1e88ff;
+            letter-spacing: 1px;
+        }
+
+        .sub-arrow {
+            color: #5a9eff;
+            font-size: 22px;
+            text-shadow: 0 0 4px #2f7eff;
+        }
+
+        .info-text {
+            text-align: center;
+            color: #5a7a9a;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+
+        /* карточка детального просмотра */
+        .detail-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(1, 5, 12, 0.95);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .detail-card {
+            background: rgba(4, 12, 22, 0.98);
+            border-radius: 36px;
+            padding: 28px 24px;
+            max-width: 320px;
+            width: 100%;
+            border: 1px solid rgba(72, 160, 255, 0.6);
+            box-shadow: 0 0 32px rgba(48, 140, 255, 0.4);
+            text-align: center;
+        }
+
+        .detail-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #8f9fb5;
+            margin-bottom: 8px;
+        }
+
+        .detail-code {
+            font-size: 32px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            color: #7ad0ff;
+            text-shadow: 0 0 10px #1e88ff;
+            margin-bottom: 20px;
+        }
+
+        .detail-expiry-label {
+            font-size: 10px;
+            color: #7a8aa5;
+            margin-top: 12px;
+        }
+
+        .detail-expiry {
+            font-size: 20px;
+            font-weight: 600;
+            color: #c2ffcc;
+            text-shadow: 0 0 6px #3eff72;
+            margin: 6px 0 20px;
+        }
+
+        .close-detail {
+            background: rgba(30, 60, 100, 0.8);
+            border: 1px solid #4a8acc;
+            border-radius: 40px;
+            padding: 10px 24px;
+            color: #d0f0ff;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            font-family: inherit;
+        }
+
+        .close-detail:hover {
+            background: #2a5a8a;
+            box-shadow: 0 0 10px #2f7eff;
+        }
+
+        @media (max-width: 500px) {
+            .sub-code {
+                font-size: 20px;
+            }
+            .dashboard-brand .brand-solidum {
+                font-size: 28px;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="app">
-  <div class="brand">
-    <div class="brand-panel">Panel</div>
-    <div class="brand-solidum">Solidum</div>
-  </div>
-  <div class="cards">
-    <div class="card">
-      <div class="card-label">ПРОБНАЯ ПОДПИСКА</div>
-      <div class="card-value" id="randomCode">VYKZ</div>
+
+<!-- экран входа -->
+<div class="login-screen" id="loginScreen">
+    <div class="login-container">
+        <div class="brand">
+            <div class="brand-panel">Panel</div>
+            <div class="brand-solidum">Solidum</div>
+        </div>
+        <div class="login-card">
+            <div class="login-title">ДОСТУП К ПОДПИСКАМ</div>
+            <div class="input-group">
+                <input type="password" id="passwordInput" placeholder="Введите пароль" autocomplete="off">
+            </div>
+            <button class="login-btn" id="loginBtn">ВОЙТИ</button>
+            <div class="error-msg" id="errorMsg"></div>
+        </div>
     </div>
-    <div class="card" id="expiryCard">
-      <div class="card-label">ИСТЕКАЕТ</div>
-      <div class="card-value" id="expiryDate">2026-04-24</div>
+</div>
+
+<!-- дашборд со списком подписок -->
+<div class="dashboard-screen" id="dashboardScreen">
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <div class="dashboard-brand">
+                <div class="brand-panel">Panel</div>
+                <div class="brand-solidum">Solidum</div>
+            </div>
+            <button class="logout-btn" id="logoutBtn">ВЫЙТИ</button>
+        </div>
+
+        <div class="subscriptions-grid" id="subscriptionsList"></div>
+        <div class="info-text">нажмите на любую подписку, чтобы увидеть детали</div>
     </div>
-  </div>
 </div>
 
 <script>
-  const targetUnix = 1776988800;
-  const targetDate = new Date(targetUnix * 1000);
-  const year = targetDate.getFullYear();
-  const month = String(targetDate.getMonth() + 1).padStart(2, '0');
-  const day = String(targetDate.getDate()).padStart(2, '0');
-  const formattedDate = `${year}-${month}-${day}`;
+    const CORRECT_PASSWORD = 'Saha140612';
+    const SESSION_KEY = 'solidum_auth';
 
-  document.getElementById('expiryDate').innerText = formattedDate;
+    // список всех подписок
+    const SUBSCRIPTIONS = [
+        { code: 'VYKZ', expiry: '2026-04-24', unix: 1776988800 },
+        { code: 'X7R2', expiry: '2026-05-15', unix: 1777843200 },
+        { code: 'M4K9', expiry: '2026-06-01', unix: 1778457600 },
+        { code: 'L2P8', expiry: '2026-07-19', unix: 1779408000 }
+    ];
 
-  const expiryCard = document.getElementById('expiryCard');
-
-  function updateExpiryGlow() {
-    const nowUnix = Math.floor(Date.now() / 1000);
-    if (nowUnix >= targetUnix) {
-      expiryCard.classList.remove('status-green');
-      expiryCard.classList.add('status-red');
-    } else {
-      expiryCard.classList.remove('status-red');
-      expiryCard.classList.add('status-green');
+    function formatDate(unix) {
+        const d = new Date(unix * 1000);
+        const y = d.getFullYear();
+        const m = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${y}-${m}-${day}`;
     }
-  }
 
-  updateExpiryGlow();
-  setInterval(updateExpiryGlow, 1000);
+    function getExpiryStatus(unix) {
+        const now = Math.floor(Date.now() / 1000);
+        return now >= unix ? 'red' : 'green';
+    }
+
+    function renderSubscriptions() {
+        const container = document.getElementById('subscriptionsList');
+        if (!container) return;
+
+        container.innerHTML = '';
+        SUBSCRIPTIONS.forEach(sub => {
+            const card = document.createElement('div');
+            card.className = 'sub-card';
+            card.setAttribute('data-code', sub.code);
+            card.setAttribute('data-expiry', sub.expiry);
+            card.setAttribute('data-unix', sub.unix);
+            card.innerHTML = `
+                <span class="sub-code">${sub.code}</span>
+                <span class="sub-arrow">→</span>
+            `;
+            card.addEventListener('click', () => showDetail(sub.code, sub.expiry, sub.unix));
+            container.appendChild(card);
+        });
+    }
+
+    function showDetail(code, expiry, unix) {
+        const status = getExpiryStatus(unix);
+        const expiryColor = status === 'green' ? '#c2ffcc' : '#ffb3b3';
+        const expiryShadow = status === 'green' ? '0 0 10px #3eff72' : '0 0 12px #ff2a2a';
+
+        const overlay = document.createElement('div');
+        overlay.className = 'detail-overlay';
+        overlay.innerHTML = `
+            <div class="detail-card">
+                <div class="detail-label">ПРОБНАЯ ПОДПИСКА</div>
+                <div class="detail-code">${code}</div>
+                <div class="detail-expiry-label">ИСТЕКАЕТ</div>
+                <div class="detail-expiry" style="color: ${expiryColor}; text-shadow: ${expiryShadow};">${expiry}</div>
+                <button class="close-detail">ЗАКРЫТЬ</button>
+            </div>
+        `;
+        document.body.appendChild(overlay);
+
+        const closeBtn = overlay.querySelector('.close-detail');
+        closeBtn.addEventListener('click', () => {
+            overlay.remove();
+        });
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) overlay.remove();
+        });
+    }
+
+    function checkAuthAndPath() {
+        const auth = sessionStorage.getItem(SESSION_KEY);
+        const path = window.location.pathname;
+
+        // если есть код в URL (например /VYKZ)
+        const match = path.match(/^\/([A-Z0-9]{4})$/);
+        if (match) {
+            const codeFromUrl = match[1];
+            const found = SUBSCRIPTIONS.find(s => s.code === codeFromUrl);
+            
+            if (!auth || auth !== 'true') {
+                // не авторизован — показываем вход, после входа перенаправляем на этот же код
+                sessionStorage.setItem('redirectAfterLogin', codeFromUrl);
+                showLoginScreen();
+                return;
+            }
+            
+            // авторизован
+            if (found) {
+                showDashboardScreen();
+                setTimeout(() => showDetail(found.code, found.expiry, found.unix), 50);
+                history.replaceState(null, '', '/dashboard');
+            } else {
+                // нет такой подписки
+                if (auth === 'true') {
+                    showDashboardScreen();
+                    alert('Подписка ' + codeFromUrl + ' не найдена');
+                } else {
+                    showLoginScreen();
+                }
+            }
+            return;
+        }
+
+        // обычный путь — dashboard или корень
+        if (auth === 'true') {
+            showDashboardScreen();
+        } else {
+            showLoginScreen();
+        }
+    }
+
+    function showLoginScreen() {
+        document.getElementById('loginScreen').style.display = 'flex';
+        document.getElementById('dashboardScreen').style.display = 'none';
+        document.getElementById('passwordInput').value = '';
+        document.getElementById('errorMsg').textContent = '';
+    }
+
+    function showDashboardScreen() {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('dashboardScreen').style.display = 'flex';
+        renderSubscriptions();
+    }
+
+    function login(password) {
+        if (password === CORRECT_PASSWORD) {
+            sessionStorage.setItem(SESSION_KEY, 'true');
+            const redirect = sessionStorage.getItem('redirectAfterLogin');
+            if (redirect) {
+                sessionStorage.removeItem('redirectAfterLogin');
+                window.location.href = '/' + redirect;
+            } else {
+                showDashboardScreen();
+                history.replaceState(null, '', '/dashboard');
+            }
+        } else {
+            document.getElementById('errorMsg').textContent = 'Неверный пароль';
+            document.getElementById('passwordInput').value = '';
+        }
+    }
+
+    function logout() {
+        sessionStorage.removeItem(SESSION_KEY);
+        sessionStorage.removeItem('redirectAfterLogin');
+        window.location.href = '/';
+    }
+
+    // обработчики
+    document.getElementById('loginBtn').addEventListener('click', () => {
+        const pwd = document.getElementById('passwordInput').value;
+        login(pwd);
+    });
+    document.getElementById('passwordInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            const pwd = document.getElementById('passwordInput').value;
+            login(pwd);
+        }
+    });
+    document.getElementById('logoutBtn').addEventListener('click', logout);
+
+    // запуск
+    checkAuthAndPath();
 </script>
 </body>
 </html>
