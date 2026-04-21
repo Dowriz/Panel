@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Solidum • Panel</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #03060c;
+      background-image: radial-gradient(circle at 15% 10%, #0a1120 0%, #010307 100%);
+      font-family: 'Inter', 'Segoe UI', system-ui, 'Poppins', sans-serif;
+      padding: 16px;
+    }
+
+    .app {
+      max-width: 260px;
+      width: 100%;
+    }
+
+    .brand {
+      margin-bottom: 20px;
+    }
+
+    .brand-panel {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: #7a89a0;
+      text-shadow: 0 0 3px #2a4568;
+      margin-bottom: 4px;
+    }
+
+    .brand-solidum {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #bedcff;
+      text-shadow: 0 0 10px #2f7eff, 0 0 3px #5ea6ff;
+      line-height: 1.05;
+    }
+
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .card {
+      background: rgba(4, 12, 22, 0.9);
+      backdrop-filter: blur(2px);
+      border-radius: 20px;
+      padding: 9px 12px;
+      transition: all 0.2s ease;
+      border: 1px solid rgba(48, 140, 255, 0.35);
+    }
+
+    .card:first-of-type {
+      box-shadow: 0 0 8px rgba(48, 160, 255, 0.5), 0 2px 8px rgba(0,0,0,0.5);
+      border-color: rgba(48, 180, 255, 0.7);
+    }
+
+    .card-label {
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+      color: #8f9fb5;
+      text-shadow: 0 0 2px #2a4a70;
+      margin-bottom: 5px;
+    }
+
+    .card-value {
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      line-height: 1.2;
+    }
+
+    .card:first-of-type .card-value {
+      color: #7ad0ff;
+      text-shadow: 0 0 6px #1e88ff, 0 0 2px #3a9eff;
+    }
+
+    .card:last-child {
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+
+    .status-green {
+      box-shadow: 0 0 8px rgba(70, 255, 120, 0.5), 0 2px 8px rgba(0,0,0,0.5);
+      border-color: rgba(70, 255, 120, 0.7);
+    }
+
+    .status-green .card-value {
+      color: #c2ffcc;
+      text-shadow: 0 0 7px #3eff72, 0 0 2px #56ff7e;
+    }
+
+    .status-green .card-label {
+      color: #b8ffc4;
+      text-shadow: 0 0 3px #2eff66;
+    }
+
+    .status-red {
+      box-shadow: 0 0 8px rgba(255, 60, 60, 0.6), 0 2px 8px rgba(0,0,0,0.5);
+      border-color: rgba(255, 70, 70, 0.8);
+    }
+
+    .status-red .card-value {
+      color: #ffb3b3;
+      text-shadow: 0 0 8px #ff2a2a, 0 0 2px #ff5a5a;
+    }
+
+    .status-red .card-label {
+      color: #ffb0b0;
+      text-shadow: 0 0 4px #ff3333;
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <div class="brand">
+    <div class="brand-panel">Panel</div>
+    <div class="brand-solidum">Solidum</div>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-label">ПРОБНАЯ ПОДПИСКА</div>
+      <div class="card-value" id="randomCode">A7F9</div>
+    </div>
+    <div class="card" id="expiryCard">
+      <div class="card-label">ИСТЕКАЕТ</div>
+      <div class="card-value" id="expiryDate">2026-04-24</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function getRandomCode() {
+    const lettersDigits = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let code = '';
+    for (let i = 0; i < 4; i++) {
+      code += lettersDigits.charAt(Math.floor(Math.random() * lettersDigits.length));
+    }
+    return code;
+  }
+
+  const targetUnix = 1776988800;
+  const targetDate = new Date(targetUnix * 1000);
+  const year = targetDate.getFullYear();
+  const month = String(targetDate.getMonth() + 1).padStart(2, '0');
+  const day = String(targetDate.getDate()).padStart(2, '0');
+  const formattedDate = `${year}-${month}-${day}`;
+
+  document.getElementById('randomCode').innerText = getRandomCode();
+  document.getElementById('expiryDate').innerText = formattedDate;
+
+  const expiryCard = document.getElementById('expiryCard');
+
+  function updateExpiryGlow() {
+    const nowUnix = Math.floor(Date.now() / 1000);
+    if (nowUnix >= targetUnix) {
+      expiryCard.classList.remove('status-green');
+      expiryCard.classList.add('status-red');
+    } else {
+      expiryCard.classList.remove('status-red');
+      expiryCard.classList.add('status-green');
+    }
+  }
+
+  updateExpiryGlow();
+  setInterval(updateExpiryGlow, 1000);
+</script>
+</body>
+</html>
