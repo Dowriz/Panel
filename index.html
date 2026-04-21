@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="description" content="SolidumVPN - Лучший и безопасный выбор для защиты ваших данных, анонимности и свободного доступа в интернет. Высокая скорость, надежное шифрование, поддержка 24/7.">
     <title>SolidumVPN</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='30' fill='%2300eebe' stroke='%2340ffd0' stroke-width='3' /%3E%3Cellipse cx='50' cy='50' rx='45' ry='12' fill='none' stroke='%2340ffd0' stroke-width='3' /%3E%3C/svg%3E">
     <style>
         * {
             margin: 0;
@@ -11,147 +14,299 @@
         }
 
         body {
-            background: #0a0a0f;
+            font-family: 'Segoe UI', 'Poppins', 'Inter', system-ui, -apple-system, 'Montserrat', sans-serif;
+            background: #041a18;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-            padding: 40px;
+            color: #fff;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
-        .container {
-            max-width: 1200px;
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(circle at 30% 10%, #008f7a, #021210);
+        }
+
+        .aurora {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(ellipse at 40% 50%, rgba(0, 238, 190, 0.35) 0%, transparent 55%),
+                radial-gradient(ellipse at 80% 20%, rgba(0, 210, 170, 0.4) 0%, transparent 60%),
+                radial-gradient(ellipse at 10% 85%, rgba(64, 255, 208, 0.3) 0%, transparent 60%);
+            animation: auroraShift 10s infinite alternate ease-in-out;
+            filter: blur(50px);
+        }
+
+        @keyframes auroraShift {
+            0% {
+                opacity: 0.7;
+                transform: scale(1) translate(0%, 0%);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1.05) translate(1%, -1%);
+            }
+        }
+
+        .content {
+            position: relative;
+            z-index: 15;
+            width: 100%;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 2rem 2rem 5rem 2rem;
             text-align: center;
         }
 
-        .main-title {
-            font-size: 4rem;
-            font-weight: 900;
-            letter-spacing: -0.5px;
-            color: #ffffff;
+        .title-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
             margin-bottom: 3rem;
         }
 
-        .cards-row {
-            display: flex;
-            flex-direction: row;
-            gap: 3rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .info-card {
-            background: rgba(25, 25, 32, 0.9);
-            backdrop-filter: blur(12px);
-            border-radius: 3rem;
-            padding: 3rem 4rem;
-            flex: 1;
-            min-width: 320px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.5);
-        }
-
-        .card-label {
-            font-size: 1.2rem;
+        .glow-title {
+            font-size: clamp(3.5rem, 12vw, 7rem);
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            line-height: 1;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            font-weight: 600;
-            color: #8e8ea8;
-            margin-bottom: 1.5rem;
-        }
-
-        .card-value {
-            font-size: 3rem;
-            font-weight: 800;
-            word-break: break-word;
-        }
-
-        .name-card .card-value {
             color: #ffffff;
-            font-family: 'JetBrains Mono', monospace;
         }
 
-        .expiry-card .card-value {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: #cbd5e6;
+        .glow-title-second {
+            font-size: clamp(3.5rem, 12vw, 7rem);
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            line-height: 1;
+            text-transform: uppercase;
+            color: #ffffff;
         }
 
-        .status-badge {
-            margin-top: 3rem;
-            display: inline-block;
-            padding: 0.8rem 2.5rem;
+        .telegram-bar {
+            background: rgba(0, 70, 65, 0.65);
+            backdrop-filter: blur(8px);
             border-radius: 60px;
+            padding: 0.9rem 2rem;
+            margin: 0 auto 1rem auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            border: 1px solid rgba(0, 238, 190, 0.85);
+            text-decoration: none;
+            color: white;
+        }
+
+        .telegram-bar i {
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #a0ffe8, #00eebe);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .telegram-bar span {
+            font-size: 1.2rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .telegram-bar .link {
             font-weight: 700;
-            font-size: 1.1rem;
+            color: #80ffe0;
+            text-decoration: none;
         }
 
-        .status-active {
-            background: rgba(34, 197, 94, 0.15);
-            color: #4ade80;
-            border: 1px solid rgba(74, 222, 128, 0.4);
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.8rem;
+            margin-top: 2rem;
         }
 
-        .status-expired {
-            background: rgba(100, 100, 115, 0.3);
-            color: #9ca3af;
-            border: 1px solid rgba(156, 163, 175, 0.5);
-            filter: grayscale(0.2);
+        .card {
+            background: rgba(0, 70, 65, 0.65);
+            backdrop-filter: blur(8px);
+            border-radius: 28px;
+            padding: 1.8rem 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(0, 238, 190, 0.75);
+            box-shadow: 0 10px 25px -8px rgba(0,0,0,0.4);
+            transition: transform 0.2s ease;
         }
 
-        .hidden-data {
-            display: none;
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            background: linear-gradient(135deg, #a0ffe8, #00eebe);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+            letter-spacing: -0.3px;
+        }
+
+        .card p {
+            font-size: 0.85rem;
+            opacity: 0.75;
+            line-height: 1.4;
+        }
+
+        .subscribe-info {
+            margin-top: 2.5rem;
+            padding: 1rem;
+            background: rgba(0, 238, 190, 0.1);
+            border-radius: 40px;
+            border: 1px solid rgba(0, 238, 190, 0.4);
+            display: inline-block;
+        }
+
+        .subscribe-info span {
+            color: #00eebe;
+            font-weight: bold;
+        }
+
+        #snowCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            overflow-y: auto;
+        }
+
+        @media (max-width: 768px) {
+            .cards-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            .content {
+                padding: 1.5rem 1rem 4rem 1rem;
+            }
+            .card {
+                padding: 1.2rem 1rem;
+            }
+            .card h3 {
+                font-size: 1.2rem;
+            }
+            .card i {
+                font-size: 2rem;
+            }
+            .card p {
+                font-size: 0.75rem;
+            }
+            .telegram-bar {
+                padding: 0.7rem 1.5rem;
+                gap: 0.7rem;
+            }
+            .telegram-bar i {
+                font-size: 1.4rem;
+            }
+            .telegram-bar span {
+                font-size: 0.9rem;
+            }
+            .title-group {
+                gap: 0.2rem;
+                margin-bottom: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cards-container {
+                gap: 0.8rem;
+            }
+            .card {
+                padding: 1rem 0.8rem;
+            }
+            .card h3 {
+                font-size: 1rem;
+            }
+            .card i {
+                font-size: 1.8rem;
+            }
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
-<div class="container">
-    <div class="main-title">SolidumVPN</div>
+<div class="animated-bg"></div>
+<div class="aurora"></div>
+<canvas id="snowCanvas"></canvas>
 
-    <div class="cards-row">
-        <div class="info-card name-card">
-            <div class="card-label">НАЗВАНИЕ</div>
-            <div class="card-value" id="profile-name-display">—</div>
+<div class="content">
+    <div class="title-group">
+        <div class="glow-title">SOLIDUM</div>
+        <div class="glow-title-second">VPN</div>
+    </div>
+
+    <a href="https://t.me/SolidumVPN" target="_blank" rel="noopener noreferrer" class="telegram-bar">
+        <i class="fab fa-telegram-plane"></i>
+        <span class="link">@SolidumVPN</span>
+    </a>
+
+    <div class="cards-container">
+        <div class="card">
+            <i class="fas fa-headset"></i>
+            <h3>24/7 Поддержка</h3>
+            <p>Операторы всегда на связи, поможем в любой ситуации</p>
         </div>
-        <div class="info-card expiry-card">
-            <div class="card-label">ИСТЕЧЕНИЕ</div>
-            <div class="card-value" id="expiry-date-display">—</div>
+        <div class="card">
+            <i class="fas fa-shield-alt"></i>
+            <h3>Надёжность</h3>
+            <p>99.9% аптайма и защита от утечек</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-rocket"></i>
+            <h3>Скорость</h3>
+            <p>Высокоскоростные серверы по всему миру</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-user-secret"></i>
+            <h3>Анонимность</h3>
+            <p>Никаких логов, полная конфиденциальность</p>
         </div>
     </div>
 
-    <div id="status-badge" class="status-badge">—</div>
-</div>
-
-<!-- Данные для HAPP-агентов (дублируются из TEXT_DATA) -->
-<div id="profile-title" style="display:none;">⚡️ SolidumVPN 🔥</div>
-<div id="profile-web-page-url" style="display:none;">https://solidum.onrender.com/</div>
-<div id="subscription-userinfo" style="display:none;">expire=1776988800</div>
-<div id="vless-lines" style="display:none;">
-vless://a92054b0-a94d-47dd-9318-0d008b969f09@play.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇩🇪 Германия | Белые списки 🏳️‍
-vless://a92054b0-a94d-47dd-9318-0d008b969f09@niderland.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇳🇱 Нидерланды | Белые списки 🏳️‍
-vless://a92054b0-a94d-47dd-9318-0d008b969f09@vd.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇷🇺 Россия | Белые списки 🏳️‍
-vless://a92054b0-a94d-47dd-9318-0d008b969f09@usa.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇺🇸 США | Белые списки 🏳️‍
-vless://a92054b0-a94d-47dd-9318-0d008b969f09@play.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇩🇪⚡️ Германия 🔥
-vless://a92054b0-a94d-47dd-9318-0d008b969f09@vk-clips.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=vk-clips.funvideorus.net&fp=chrome&pbk=CgCNrtbyuwFTfRlo-7jahWxpTEwtDFFF7W2Qhf2O1XY&sid=19b4ec7cb90e61&type=tcp&headerType=none#🇩🇪 Германия
-vless://a92054b0-a94d-47dd-9318-0d008b969f09@niderland.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇳🇱⚡️ Нидерланды 🔥
-vless://a92054b0-a94d-47dd-9318-0d008b969f09@niderland.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇳🇱 Нидерланды
-vless://a92054b0-a94d-47dd-9318-0d008b969f09@polka.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇵🇱 Польша
-vless://a92054b0-a94d-47dd-9318-0d008b969f09@ru.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=ru.funvideorus.net&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇷🇺⚡️ Россия 🔥
-vless://a92054b0-a94d-47dd-9318-0d008b969f09@usa.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇺🇸⚡️ США 🔥
-vless://a92054b0-a94d-47dd-9318-0d008b969f09@usa.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇺🇸 США 🔥
-vless://a92054b0-a94d-47dd-9318-0d008b969f09@usa.fastexte.pro:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=usa.fastexte.pro&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇺🇸 США 🔥
-vless://a92054b0-a94d-47dd-9318-0d008b969f09@sweds.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇸🇪⚡️ Швеция 🔥
-vless://a92054b0-a94d-47dd-9318-0d008b969f09@45.12.143.73:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇹🇷 Турция
+    <div class="subscribe-info">
+        📅 Подписка активна до: <span>24.04.2026</span> ✅
+    </div>
 </div>
 
 <script>
-    (function() {
-        // ========== ВАШИ ДАННЫЕ ==========
-        const TEXT_DATA = `#profile-title: ⚡️ SolidumVPN 🔥
+// ВШИТЫЙ ТЕКСТ ДЛЯ HAPP (ВСЕ ТВОИ ССЫЛКИ)
+const TEXT_DATA = `#profile-title: ⚡️ SolidumVPN | Пробная подписка 🔥
 #profile-web-page-url: https://solidum.onrender.com/
 #subscription-userinfo: expire=1776988800
 
@@ -171,57 +326,96 @@ vless://a92054b0-a94d-47dd-9318-0d008b969f09@usa.fastexte.pro:443?encryption=non
 vless://a92054b0-a94d-47dd-9318-0d008b969f09@sweds.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇸🇪⚡️ Швеция 🔥
 vless://a92054b0-a94d-47dd-9318-0d008b969f09@45.12.143.73:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇹🇷 Турция`;
 
-        // Парсим TEXT_DATA
-        function parseExpireFromText(data) {
-            const match = data.match(/#subscription-userinfo:\s*expire=(\d+)/);
-            return match ? parseInt(match[1]) : null;
+// ОПРЕДЕЛЯЕМ, КТО ПРИШЁЛ
+const ua = navigator.userAgent;
+const isApp = ua.includes('HAPP') || ua.includes('NekoBox') || ua.includes('v2rayNG') || ua.includes('Sing-box') || ua.includes('Clash') || ua.includes('Matsuri') || ua.includes('SagerNet');
+
+if (isApp) {
+    // Для HAPP и приложений — отдаём чистый текст
+    document.body.innerHTML = `<pre style="background:#fff;color:#000;padding:20px;font-family:monospace;white-space:pre-wrap;word-wrap:break-word;margin:0;min-height:100vh;">${TEXT_DATA}</pre>`;
+    document.body.style.background = '#fff';
+    document.body.style.margin = '0';
+} else {
+    // Для браузеров — панель (уже отрисована)
+    console.log('Панель для браузера');
+}
+
+// Снег (оставляем для красоты)
+(function() {
+    const canvas = document.getElementById('snowCanvas');
+    if (!canvas) return;
+    let ctx = canvas.getContext('2d');
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    let snowflakes = [];
+
+    function resizeCanvas() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+    }
+
+    class Snow {
+        constructor() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.radius = Math.random() * 1.0 + 0.5;
+            this.speedY = Math.random() * 0.7 + 0.3;
+            this.speedX = (Math.random() - 0.5) * 0.2;
+            this.opacity = Math.random() * 0.4 + 0.15;
         }
-
-        function parseProfileTitle(data) {
-            const match = data.match(/#profile-title:\s*(.+)/);
-            return match ? match[1].trim() : "SolidumVPN";
+        update() {
+            this.y += this.speedY;
+            this.x += this.speedX;
+            if (this.y > height + 10) {
+                this.y = -10;
+                this.x = Math.random() * width;
+            }
+            if (this.x > width + 15) this.x = -15;
+            if (this.x < -15) this.x = width + 15;
         }
-
-        const EXPIRE_UNIX = parseExpireFromText(TEXT_DATA);
-        const PROFILE_TITLE = parseProfileTitle(TEXT_DATA);
-        
-        // Отображаем название подпитки (без молний, просто название)
-        // Из "⚡️ SolidumVPN 🔥" достаём "SolidumVPN"
-        const cleanTitle = PROFILE_TITLE.replace(/[⚡️🔥]/g, '').trim();
-        document.getElementById('profile-name-display').innerText = cleanTitle;
-
-        // Дата истечения
-        const NOW_SEC = Math.floor(Date.now() / 1000);
-        const isActive = EXPIRE_UNIX ? (NOW_SEC < EXPIRE_UNIX) : true;
-
-        if (EXPIRE_UNIX) {
-            const expireDate = new Date(EXPIRE_UNIX * 1000);
-            const formattedDate = expireDate.toLocaleDateString('ru-RU', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-            document.getElementById('expiry-date-display').innerText = formattedDate;
-        } else {
-            document.getElementById('expiry-date-display').innerText = 'не указано';
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 255, 250, ${this.opacity})`;
+            ctx.fill();
         }
+    }
 
-        const statusBadge = document.getElementById('status-badge');
-        if (isActive) {
-            statusBadge.innerText = 'АКТИВНА';
-            statusBadge.className = 'status-badge status-active';
-        } else {
-            statusBadge.innerText = 'ИСТЕКЛА';
-            statusBadge.className = 'status-badge status-expired';
-            const cards = document.querySelectorAll('.info-card');
-            cards.forEach(card => {
-                card.style.background = 'rgba(35, 35, 42, 0.7)';
-                card.style.border = '1px solid rgba(120, 120, 135, 0.3)';
-                card.style.filter = 'grayscale(0.2)';
-            });
-            document.querySelector('.main-title').style.opacity = '0.5';
+    function initSnow(count) {
+        snowflakes = [];
+        for (let i = 0; i < count; i++) {
+            snowflakes.push(new Snow());
         }
-    })();
+    }
+
+    function animateSnow() {
+        if (!ctx) return;
+        ctx.clearRect(0, 0, width, height);
+        for (let flake of snowflakes) {
+            flake.update();
+            flake.draw();
+        }
+        requestAnimationFrame(animateSnow);
+    }
+
+    function handleResize() {
+        resizeCanvas();
+        let newCount = Math.floor((width * height) / 2500);
+        newCount = Math.min(500, Math.max(200, newCount));
+        initSnow(newCount);
+    }
+
+    if (canvas) {
+        resizeCanvas();
+        let snowCount = Math.floor((width * height) / 2500);
+        snowCount = Math.min(500, Math.max(200, snowCount));
+        initSnow(snowCount);
+        animateSnow();
+        window.addEventListener('resize', handleResize);
+    }
+})();
 </script>
 
 </body>
