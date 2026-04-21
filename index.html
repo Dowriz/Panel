@@ -26,7 +26,6 @@
             text-align: center;
         }
 
-        /* Заголовок SolidumVPN — без молний, жирный */
         .main-title {
             font-size: 4rem;
             font-weight: 900;
@@ -35,7 +34,6 @@
             margin-bottom: 3rem;
         }
 
-        /* Две карточки в ряд, увеличены в 2 раза */
         .cards-row {
             display: flex;
             flex-direction: row;
@@ -44,7 +42,6 @@
             flex-wrap: wrap;
         }
 
-        /* Карточки — размер ×2 */
         .info-card {
             background: rgba(25, 25, 32, 0.9);
             backdrop-filter: blur(12px);
@@ -72,20 +69,17 @@
             word-break: break-word;
         }
 
-        /* Название подписки */
         .name-card .card-value {
             color: #ffffff;
             font-family: 'JetBrains Mono', monospace;
         }
 
-        /* Истечение */
         .expiry-card .card-value {
             font-size: 2.2rem;
             font-weight: 700;
             color: #cbd5e6;
         }
 
-        /* Статус под карточками */
         .status-badge {
             margin-top: 3rem;
             display: inline-block;
@@ -108,7 +102,6 @@
             filter: grayscale(0.2);
         }
 
-        /* Скрытые данные */
         .hidden-data {
             display: none;
         }
@@ -117,14 +110,12 @@
 <body>
 
 <div class="container">
-    <!-- Заголовок SolidumVPN без молний -->
     <div class="main-title">SolidumVPN</div>
 
-    <!-- Две карточки: Название и Истечение -->
     <div class="cards-row">
         <div class="info-card name-card">
             <div class="card-label">НАЗВАНИЕ</div>
-            <div class="card-value">A7kR9q</div>
+            <div class="card-value" id="profile-name-display">—</div>
         </div>
         <div class="info-card expiry-card">
             <div class="card-label">ИСТЕЧЕНИЕ</div>
@@ -132,15 +123,14 @@
         </div>
     </div>
 
-    <div id="status-badge" class="status-badge status-active">АКТИВНА</div>
+    <div id="status-badge" class="status-badge">—</div>
 </div>
 
-<!-- ========== ВСЕ ВАШИ ДАННЫЕ ДЛЯ HAPP-АГЕНТОВ ========== -->
-<div id="profile-title" style="display:none;">⚡️ SolidumVPN | Пробная подписка 🔥</div>
+<!-- Данные для HAPP-агентов (дублируются из TEXT_DATA) -->
+<div id="profile-title" style="display:none;">⚡️ SolidumVPN 🔥</div>
 <div id="profile-web-page-url" style="display:none;">https://solidum.onrender.com/</div>
 <div id="subscription-userinfo" style="display:none;">expire=1776988800</div>
-
-<div style="display:none;">
+<div id="vless-lines" style="display:none;">
 vless://a92054b0-a94d-47dd-9318-0d008b969f09@play.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇩🇪 Германия | Белые списки 🏳️‍
 vless://a92054b0-a94d-47dd-9318-0d008b969f09@niderland.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇳🇱 Нидерланды | Белые списки 🏳️‍
 vless://a92054b0-a94d-47dd-9318-0d008b969f09@vd.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇷🇺 Россия | Белые списки 🏳️‍
@@ -160,18 +150,61 @@ vless://a92054b0-a94d-47dd-9318-0d008b969f09@45.12.143.73:443?encryption=none&fl
 
 <script>
     (function() {
-        const EXPIRE_UNIX = 1776988800;
+        // ========== ВАШИ ДАННЫЕ ==========
+        const TEXT_DATA = `#profile-title: ⚡️ SolidumVPN 🔥
+#profile-web-page-url: https://solidum.onrender.com/
+#subscription-userinfo: expire=1776988800
+
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@play.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇩🇪 Германия | Белые списки 🏳️‍
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@niderland.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇳🇱 Нидерланды | Белые списки 🏳️‍
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@vd.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇷🇺 Россия | Белые списки 🏳️‍
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@usa.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇺🇸 США | Белые списки 🏳️‍
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@play.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇩🇪⚡️ Германия 🔥
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@vk-clips.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=vk-clips.funvideorus.net&fp=chrome&pbk=CgCNrtbyuwFTfRlo-7jahWxpTEwtDFFF7W2Qhf2O1XY&sid=19b4ec7cb90e61&type=tcp&headerType=none#🇩🇪 Германия
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@niderland.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇳🇱⚡️ Нидерланды 🔥
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@niderland.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇳🇱 Нидерланды
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@polka.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇵🇱 Польша
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@ru.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=ru.funvideorus.net&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇷🇺⚡️ Россия 🔥
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@usa.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇺🇸⚡️ США 🔥
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@usa.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇺🇸 США 🔥
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@usa.fastexte.pro:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=usa.fastexte.pro&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇺🇸 США 🔥
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@sweds.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇸🇪⚡️ Швеция 🔥
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@45.12.143.73:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇹🇷 Турция`;
+
+        // Парсим TEXT_DATA
+        function parseExpireFromText(data) {
+            const match = data.match(/#subscription-userinfo:\s*expire=(\d+)/);
+            return match ? parseInt(match[1]) : null;
+        }
+
+        function parseProfileTitle(data) {
+            const match = data.match(/#profile-title:\s*(.+)/);
+            return match ? match[1].trim() : "SolidumVPN";
+        }
+
+        const EXPIRE_UNIX = parseExpireFromText(TEXT_DATA);
+        const PROFILE_TITLE = parseProfileTitle(TEXT_DATA);
+        
+        // Отображаем название подпитки (без молний, просто название)
+        // Из "⚡️ SolidumVPN 🔥" достаём "SolidumVPN"
+        const cleanTitle = PROFILE_TITLE.replace(/[⚡️🔥]/g, '').trim();
+        document.getElementById('profile-name-display').innerText = cleanTitle;
+
+        // Дата истечения
         const NOW_SEC = Math.floor(Date.now() / 1000);
-        const isActive = NOW_SEC < EXPIRE_UNIX;
+        const isActive = EXPIRE_UNIX ? (NOW_SEC < EXPIRE_UNIX) : true;
 
-        const expireDate = new Date(EXPIRE_UNIX * 1000);
-        const formattedDate = expireDate.toLocaleDateString('ru-RU', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
-
-        document.getElementById('expiry-date-display').innerText = formattedDate;
+        if (EXPIRE_UNIX) {
+            const expireDate = new Date(EXPIRE_UNIX * 1000);
+            const formattedDate = expireDate.toLocaleDateString('ru-RU', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            document.getElementById('expiry-date-display').innerText = formattedDate;
+        } else {
+            document.getElementById('expiry-date-display').innerText = 'не указано';
+        }
 
         const statusBadge = document.getElementById('status-badge');
         if (isActive) {
