@@ -134,7 +134,7 @@
   <div class="cards">
     <div class="card">
       <div class="card-label">ПРОБНАЯ ПОДПИСКА</div>
-      <div class="card-value" id="randomCode">A7F9</div>
+      <div class="card-value" id="randomCode">VYKZ</div>
     </div>
     <div class="card" id="expiryCard">
       <div class="card-label">ИСТЕКАЕТ</div>
@@ -144,15 +144,6 @@
 </div>
 
 <script>
-  function getRandomCode() {
-    const lettersDigits = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    let code = '';
-    for (let i = 0; i < 4; i++) {
-      code += lettersDigits.charAt(Math.floor(Math.random() * lettersDigits.length));
-    }
-    return code;
-  }
-
   const targetUnix = 1776988800;
   const targetDate = new Date(targetUnix * 1000);
   const year = targetDate.getFullYear();
@@ -160,7 +151,6 @@
   const day = String(targetDate.getDate()).padStart(2, '0');
   const formattedDate = `${year}-${month}-${day}`;
 
-  document.getElementById('randomCode').innerText = getRandomCode();
   document.getElementById('expiryDate').innerText = formattedDate;
 
   const expiryCard = document.getElementById('expiryCard');
