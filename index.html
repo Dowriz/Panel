@@ -3,173 +3,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Solidum • вход</title>
+    <title>Solidum</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             min-height: 100vh;
             background: #03060c;
-            background-image: radial-gradient(circle at 15% 10%, #0a1120 0%, #010307 100%);
-            font-family: 'Inter', 'Segoe UI', system-ui, 'Poppins', sans-serif;
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+        .nothing {
+            min-height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            background: #03060c;
+            color: #0a1428;
+            font-size: 1px;
+            user-select: none;
+        }
+        .vpn-panel {
+            display: none;
+            max-width: 500px;
+            margin: 0 auto;
             padding: 20px;
         }
-
-        .login-container {
-            max-width: 340px;
-            width: 100%;
+        .vpn-card {
+            background: rgba(4, 12, 22, 0.92);
+            backdrop-filter: blur(12px);
+            border-radius: 42px;
+            padding: 32px 24px;
+            border: 1px solid rgba(48, 160, 255, 0.5);
+            box-shadow: 0 0 28px rgba(48, 140, 255, 0.3);
         }
-
-        .brand {
-            margin-bottom: 32px;
-            text-align: center;
-        }
-
-        .brand-panel {
-            font-size: 12px;
-            font-weight: 500;
-            letter-spacing: 2.2px;
-            text-transform: uppercase;
-            color: #7a89a0;
-            text-shadow: 0 0 4px #2a4568;
-            margin-bottom: 5px;
-        }
-
-        .brand-solidum {
-            font-size: 42px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            color: #bedcff;
-            text-shadow: 0 0 12px #2f7eff, 0 0 4px #5ea6ff;
-            line-height: 1.05;
-        }
-
-        .login-card {
-            background: rgba(4, 12, 22, 0.9);
-            backdrop-filter: blur(2px);
-            border-radius: 28px;
-            padding: 28px 22px;
-            border: 1px solid rgba(48, 140, 255, 0.4);
-            box-shadow: 0 0 16px rgba(48, 140, 255, 0.3);
-        }
-
-        .login-title {
-            font-size: 18px;
+        .badge {
+            display: inline-block;
+            background: rgba(48, 140, 255, 0.15);
+            border: 1px solid rgba(48, 180, 255, 0.4);
+            border-radius: 60px;
+            padding: 6px 16px;
+            font-size: 11px;
             font-weight: 600;
-            color: #c0dcff;
-            text-shadow: 0 0 4px #2f7eff;
-            margin-bottom: 24px;
-            text-align: center;
-        }
-
-        .input-group {
+            color: #7ac8ff;
+            text-shadow: 0 0 4px #1e88ff;
             margin-bottom: 20px;
         }
-
-        .input-group input {
-            width: 100%;
-            background: rgba(10, 20, 35, 0.8);
-            border: 1px solid rgba(48, 140, 255, 0.5);
-            border-radius: 18px;
-            padding: 14px 18px;
-            font-size: 16px;
-            color: #e0f0ff;
-            font-family: inherit;
-            outline: none;
-            transition: all 0.2s;
+        .title {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #d0f0ff, #7ac8ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 12px;
         }
-
-        .input-group input:focus {
-            border-color: #3a9eff;
-            box-shadow: 0 0 10px rgba(58, 158, 255, 0.4);
+        .sub-name {
+            font-size: 42px;
+            font-weight: 800;
+            font-family: monospace;
+            color: #a0e0ff;
+            text-shadow: 0 0 12px #2f9eff;
+            margin: 16px 0 8px;
         }
-
-        .input-group input::placeholder {
-            color: #5a6e8a;
+        .expiry-block {
+            background: rgba(0, 20, 40, 0.6);
+            border-radius: 28px;
+            padding: 16px 20px;
+            margin: 20px 0;
+            border-left: 3px solid #3eff6e;
         }
-
-        .login-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #1a4a8a, #0e2a50);
-            border: 1px solid rgba(72, 160, 255, 0.6);
-            border-radius: 24px;
-            padding: 12px;
-            font-size: 16px;
+        .expiry-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #8fbbff;
+            margin-bottom: 6px;
+        }
+        .expiry-date {
+            font-size: 28px;
+            font-weight: 700;
+            font-family: monospace;
+            color: #c2ffcc;
+            text-shadow: 0 0 8px #2eff66;
+        }
+        .servers-section {
+            margin: 28px 0 20px;
+        }
+        .servers-title {
+            font-size: 14px;
             font-weight: 600;
-            color: #d0f0ff;
-            text-shadow: 0 0 3px #2f7eff;
+            color: #b0d4ff;
+            margin-bottom: 16px;
+        }
+        .servers-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-height: 340px;
+            overflow-y: auto;
+        }
+        .server-item {
+            background: rgba(10, 25, 45, 0.7);
+            border-radius: 20px;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(48, 140, 255, 0.3);
             cursor: pointer;
-            transition: all 0.2s;
-            font-family: inherit;
         }
-
-        .login-btn:hover {
-            background: linear-gradient(135deg, #2a5a9a, #1a3a6a);
-            box-shadow: 0 0 12px rgba(48, 140, 255, 0.5);
-            border-color: #5ab0ff;
+        .server-item:hover {
+            background: rgba(30, 70, 120, 0.6);
         }
-
-        .error-msg {
-            color: #ff8a8a;
-            text-shadow: 0 0 3px #ff3a3a;
-            font-size: 12px;
+        .server-name {
+            font-size: 14px;
+            color: #cce6ff;
+        }
+        .copy-badge {
+            font-size: 11px;
+            background: rgba(60, 130, 200, 0.3);
+            padding: 4px 10px;
+            border-radius: 40px;
+            color: #9acdff;
+        }
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0e2a3e;
+            border: 1px solid #4a9eff;
+            border-radius: 60px;
+            padding: 12px 24px;
+            color: #c0f0ff;
+            font-size: 14px;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.2s;
+            pointer-events: none;
+        }
+        .watermark {
             text-align: center;
-            margin-top: 16px;
-            min-height: 32px;
+            margin-top: 28px;
+            font-size: 9px;
+            color: #2a4a6a;
+        }
+        .hidden-data {
+            display: none;
         }
     </style>
 </head>
 <body>
-<div class="login-container">
-    <div class="brand">
-        <div class="brand-panel">Panel</div>
-        <div class="brand-solidum">Solidum</div>
-    </div>
-    <div class="login-card">
-        <div class="login-title">ДОСТУП К ПОДПИСКАМ</div>
-        <div class="input-group">
-            <input type="password" id="passwordInput" placeholder="Введите пароль" autocomplete="off">
+
+<div class="nothing" id="nothingScreen"></div>
+
+<div class="vpn-panel" id="vpnPanel">
+    <div class="vpn-card">
+        <div class="badge">⚡️ ПРОБНАЯ ПОДПИСКА 🔥</div>
+        <div class="title">SolidumVPN</div>
+        <div class="sub-name">VYKZ</div>
+        <div class="expiry-block" id="expiryBlock">
+            <div class="expiry-label">⏳ ИСТЕКАЕТ</div>
+            <div class="expiry-date" id="expiryDate">2026-04-24</div>
         </div>
-        <button class="login-btn" id="loginBtn">ВОЙТИ</button>
-        <div class="error-msg" id="errorMsg"></div>
+        <div class="servers-section">
+            <div class="servers-title">🛰️ СЕРВЕРЫ (нажмите для копирования)</div>
+            <div class="servers-grid" id="serversList"></div>
+        </div>
+        <div class="watermark">panel-sv.onrender.com/sub/VYKZ</div>
     </div>
 </div>
 
+<div id="toastMsg" class="toast">✓ Скопировано</div>
+
+<div class="hidden-data" id="agentData">
+#profile-title: ⚡️ SolidumVPN | Пробная подписка 🔥
+#profile-web-page-url: https://solidum.onrender.com/
+#subscription-userinfo: expire=1776988800
+
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@play.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇩🇪 Германия | Белые списки 🏳️‍
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@niderland.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇳🇱 Нидерланды | Белые списки 🏳️‍
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@vd.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇷🇺 Россия | Белые списки 🏳️‍
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@usa.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇺🇸 США | Белые списки 🏳️‍
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@play.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇩🇪⚡️ Германия 🔥
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@vk-clips.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=vk-clips.funvideorus.net&fp=chrome&pbk=CgCNrtbyuwFTfRlo-7jahWxpTEwtDFFF7W2Qhf2O1XY&sid=19b4ec7cb90e61&type=tcp&headerType=none#🇩🇪 Германия
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@niderland.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇳🇱⚡️ Нидерланды 🔥
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@niderland.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇳🇱 Нидерланды
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@polka.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇵🇱 Польша
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@ru.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=ru.funvideorus.net&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇷🇺⚡️ Россия 🔥
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@usa.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇺🇸⚡️ США 🔥
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@usa.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇺🇸 США 🔥
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@usa.fastexte.pro:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=usa.fastexte.pro&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇺🇸 США 🔥
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@sweds.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇸🇪⚡️ Швеция 🔥
+vless://a92054b0-a94d-47dd-9318-0d008b969f09@45.12.143.73:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇹🇷 Турция
+</div>
+
 <script>
-    const CORRECT_PASSWORD = 'Saha140612';
-    const SESSION_KEY = 'solidum_auth';
-
-    function checkAuth() {
-        if (sessionStorage.getItem(SESSION_KEY) === 'true') {
-            window.location.href = '/sub/VYKZ';
-        }
-    }
-
-    function login() {
-        const pwd = document.getElementById('passwordInput').value;
-        const errorMsg = document.getElementById('errorMsg');
-        if (pwd === CORRECT_PASSWORD) {
-            sessionStorage.setItem(SESSION_KEY, 'true');
-            window.location.href = '/sub/VYKZ';
+    (function() {
+        const path = window.location.pathname;
+        
+        if (path === '/sub/VYKZ') {
+            document.getElementById('nothingScreen').style.display = 'none';
+            document.getElementById('vpnPanel').style.display = 'block';
+            
+            const EXPIRY_UNIX = 1776988800;
+            const nowUnix = Math.floor(Date.now() / 1000);
+            const expiryBlock = document.getElementById('expiryBlock');
+            const expiryDateElem = document.getElementById('expiryDate');
+            
+            if (nowUnix >= EXPIRY_UNIX) {
+                expiryBlock.style.borderLeftColor = '#ff5e5e';
+                expiryDateElem.style.color = '#ffb3b3';
+                expiryDateElem.style.textShadow = '0 0 8px #ff2a2a';
+            } else {
+                expiryBlock.style.borderLeftColor = '#3eff6e';
+                expiryDateElem.style.color = '#c2ffcc';
+                expiryDateElem.style.textShadow = '0 0 8px #2eff66';
+            }
+            
+            const VLESS_NODES = [
+                { name: "🇩🇪 Германия | Белые списки 🏳️‍", link: "vless://a92054b0-a94d-47dd-9318-0d008b969f09@play.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇩🇪 Германия | Белые списки 🏳️‍" },
+                { name: "🇳🇱 Нидерланды | Белые списки 🏳️‍", link: "vless://a92054b0-a94d-47dd-9318-0d008b969f09@niderland.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇳🇱 Нидерланды | Белые списки 🏳️‍" },
+                { name: "🇷🇺 Россия | Белые списки 🏳️‍", link: "vless://a92054b0-a94d-47dd-9318-0d008b969f09@vd.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇷🇺 Россия | Белые списки 🏳️‍" },
+                { name: "🇺🇸 США | Белые списки 🏳️‍", link: "vless://a92054b0-a94d-47dd-9318-0d008b969f09@usa.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇺🇸 США | Белые списки 🏳️‍" },
+                { name: "🇩🇪⚡️ Германия 🔥", link: "vless://a92054b0-a94d-47dd-9318-0d008b969f09@play.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇩🇪⚡️ Германия 🔥" },
+                { name: "🇩🇪 Германия", link: "vless://a92054b0-a94d-47dd-9318-0d008b969f09@vk-clips.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=vk-clips.funvideorus.net&fp=chrome&pbk=CgCNrtbyuwFTfRlo-7jahWxpTEwtDFFF7W2Qhf2O1XY&sid=19b4ec7cb90e61&type=tcp&headerType=none#🇩🇪 Германия" },
+                { name: "🇳🇱⚡️ Нидерланды 🔥", link: "vless://a92054b0-a94d-47dd-9318-0d008b969f09@niderland.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇳🇱⚡️ Нидерланды 🔥" },
+                { name: "🇳🇱 Нидерланды", link: "vless://a92054b0-a94d-47dd-9318-0d008b969f09@niderland.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇳🇱 Нидерланды" },
+                { name: "🇵🇱 Польша", link: "vless://a92054b0-a94d-47dd-9318-0d008b969f09@polka.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇵🇱 Польша" },
+                { name: "🇷🇺⚡️ Россия 🔥", link: "vless://a92054b0-a94d-47dd-9318-0d008b969f09@ru.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=ru.funvideorus.net&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇷🇺⚡️ Россия 🔥" },
+                { name: "🇺🇸⚡️ США 🔥", link: "vless://a92054b0-a94d-47dd-9318-0d008b969f09@usa.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇺🇸⚡️ США 🔥" },
+                { name: "🇺🇸 США 🔥", link: "vless://a92054b0-a94d-47dd-9318-0d008b969f09@usa.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇺🇸 США 🔥" },
+                { name: "🇺🇸 США FasTexte", link: "vless://a92054b0-a94d-47dd-9318-0d008b969f09@usa.fastexte.pro:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=usa.fastexte.pro&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇺🇸 США 🔥" },
+                { name: "🇸🇪⚡️ Швеция 🔥", link: "vless://a92054b0-a94d-47dd-9318-0d008b969f09@sweds.funvideorus.net:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇸🇪⚡️ Швеция 🔥" },
+                { name: "🇹🇷 Турция", link: "vless://a92054b0-a94d-47dd-9318-0d008b969f09@45.12.143.73:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=deepl.com&fp=chrome&pbk=vnjp7zIK2H3CGdjSis_79KXqS6IG-opmpbETPUD-EC8&sid=15affa0af66dfc79&type=tcp&headerType=none#🇹🇷 Турция" }
+            ];
+            
+            const container = document.getElementById('serversList');
+            VLESS_NODES.forEach(node => {
+                const div = document.createElement('div');
+                div.className = 'server-item';
+                div.innerHTML = `<span class="server-name">${node.name}</span><span class="copy-badge">копировать</span>`;
+                div.addEventListener('click', () => {
+                    navigator.clipboard.writeText(node.link);
+                    const toast = document.getElementById('toastMsg');
+                    toast.style.opacity = '1';
+                    toast.textContent = `✓ ${node.name} скопирован`;
+                    setTimeout(() => toast.style.opacity = '0', 1500);
+                });
+                container.appendChild(div);
+            });
         } else {
-            errorMsg.textContent = 'Неверный пароль';
-            document.getElementById('passwordInput').value = '';
+            document.getElementById('nothingScreen').style.display = 'flex';
+            document.getElementById('vpnPanel').style.display = 'none';
         }
-    }
-
-    document.getElementById('loginBtn').addEventListener('click', login);
-    document.getElementById('passwordInput').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') login();
-    });
-
-    checkAuth();
+    })();
 </script>
 </body>
 </html>
