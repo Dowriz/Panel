@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Solidum • подписка</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #03060c;
+            background-image: radial-gradient(circle at 15% 10%, #0a1120 0%, #010307 100%);
+            font-family: 'Inter', 'Segoe UI', system-ui, 'Poppins', sans-serif;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .brand {
+            flex: 1;
+        }
+
+        .brand-panel {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #7a89a0;
+            text-shadow: 0 0 3px #2a4568;
+            margin-bottom: 4px;
+        }
+
+        .brand-solidum {
+            font-size: 34px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: #bedcff;
+            text-shadow: 0 0 10px #2f7eff, 0 0 3px #5ea6ff;
+            line-height: 1.05;
+        }
+
+        .logout-btn {
+            background: rgba(20, 40, 65, 0.8);
+            border: 1px solid rgba(80, 140, 200, 0.5);
+            border-radius: 40px;
+            padding: 8px 18px;
+            color: #b0d0ff;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .logout-btn:hover {
+            background: rgba(40, 70, 110, 0.9);
+            border-color: #5a9eff;
+            box-shadow: 0 0 8px rgba(80, 160, 255, 0.3);
+        }
+
+        .subscriptions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .sub-card {
+            background: rgba(4, 12, 22, 0.85);
+            backdrop-filter: blur(2px);
+            border-radius: 24px;
+            padding: 14px 18px;
+            border: 1px solid rgba(48, 140, 255, 0.35);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sub-card:hover {
+            transform: translateX(4px);
+            border-color: rgba(80, 170, 255, 0.7);
+            box-shadow: 0 0 12px rgba(48, 140, 255, 0.4);
+        }
+
+        .sub-code {
+            font-size: 24px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            color: #7ad0ff;
+            text-shadow: 0 0 6px #1e88ff;
+            letter-spacing: 1px;
+        }
+
+        .sub-arrow {
+            color: #5a9eff;
+            font-size: 22px;
+            text-shadow: 0 0 4px #2f7eff;
+        }
+
+        .info-text {
+            text-align: center;
+            color: #5a7a9a;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+
+        .detail-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(1, 5, 12, 0.95);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .detail-card {
+            background: rgba(4, 12, 22, 0.98);
+            border-radius: 36px;
+            padding: 28px 24px;
+            max-width: 320px;
+            width: 100%;
+            border: 1px solid rgba(72, 160, 255, 0.6);
+            box-shadow: 0 0 32px rgba(48, 140, 255, 0.4);
+            text-align: center;
+        }
+
+        .detail-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #8f9fb5;
+            margin-bottom: 8px;
+        }
+
+        .detail-code {
+            font-size: 32px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            color: #7ad0ff;
+            text-shadow: 0 0 10px #1e88ff;
+            margin-bottom: 20px;
+        }
+
+        .detail-expiry-label {
+            font-size: 10px;
+            color: #7a8aa5;
+            margin-top: 12px;
+        }
+
+        .detail-expiry {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 6px 0 20px;
+        }
+
+        .close-detail {
+            background: rgba(30, 60, 100, 0.8);
+            border: 1px solid #4a8acc;
+            border-radius: 40px;
+            padding: 10px 24px;
+            color: #d0f0ff;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            font-family: inherit;
+        }
+
+        .close-detail:hover {
+            background: #2a5a8a;
+            box-shadow: 0 0 10px #2f7eff;
+        }
+
+        @media (max-width: 500px) {
+            .sub-code {
+                font-size: 20px;
+            }
+            .brand-solidum {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="brand">
+            <div class="brand-panel">Panel</div>
+            <div class="brand-solidum">Solidum</div>
+        </div>
+        <button class="logout-btn" id="logoutBtn">ВЫЙТИ</button>
+    </div>
+    <div class="subscriptions-list" id="subscriptionsList"></div>
+    <div class="info-text">нажмите на подписку, чтобы увидеть детали</div>
+</div>
+
+<script>
+    const SESSION_KEY = 'solidum_auth';
+    const VALID_CODE = 'VYKZ';
+    const EXPIRY_DATE = '2026-04-24';
+    const EXPIRY_UNIX = 1776988800;
+
+    function checkAuth() {
+        if (sessionStorage.getItem(SESSION_KEY) !== 'true') {
+            window.location.href = '/';
+        }
+    }
+
+    function getCodeFromUrl() {
+        const path = window.location.pathname;
+        const match = path.match(/^\/sub\/([A-Z0-9]{4})$/i);
+        if (match) return match[1].toUpperCase();
+        return null;
+    }
+
+    function getExpiryStatus(unix) {
+        const now = Math.floor(Date.now() / 1000);
+        return now >= unix ? 'red' : 'green';
+    }
+
+    function showDetail(code, expiry, unix) {
+        const status = getExpiryStatus(unix);
+        const expiryColor = status === 'green' ? '#c2ffcc' : '#ffb3b3';
+        const expiryShadow = status === 'green' ? '0 0 10px #3eff72' : '0 0 12px #ff2a2a';
+
+        const overlay = document.createElement('div');
+        overlay.className = 'detail-overlay';
+        overlay.innerHTML = `
+            <div class="detail-card">
+                <div class="detail-label">ПРОБНАЯ ПОДПИСКА</div>
+                <div class="detail-code">${code}</div>
+                <div class="detail-expiry-label">ИСТЕКАЕТ</div>
+                <div class="detail-expiry" style="color: ${expiryColor}; text-shadow: ${expiryShadow};">${expiry}</div>
+                <button class="close-detail">ЗАКРЫТЬ</button>
+            </div>
+        `;
+        document.body.appendChild(overlay);
+
+        const closeBtn = overlay.querySelector('.close-detail');
+        closeBtn.addEventListener('click', () => overlay.remove());
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) overlay.remove();
+        });
+    }
+
+    function renderPage() {
+        const codeFromUrl = getCodeFromUrl();
+        const container = document.getElementById('subscriptionsList');
+        container.innerHTML = '';
+
+        if (codeFromUrl === VALID_CODE) {
+            const card = document.createElement('div');
+            card.className = 'sub-card';
+            card.innerHTML = `
+                <span class="sub-code">${VALID_CODE}</span>
+                <span class="sub-arrow">→</span>
+            `;
+            card.addEventListener('click', () => showDetail(VALID_CODE, EXPIRY_DATE, EXPIRY_UNIX));
+            container.appendChild(card);
+        } else if (codeFromUrl) {
+            container.innerHTML = `<div style="text-align: center; color: #ff8a8a; padding: 20px;">Подписка ${codeFromUrl} не найдена</div>`;
+        } else {
+            window.location.href = '/sub/' + VALID_CODE;
+        }
+    }
+
+    function logout() {
+        sessionStorage.removeItem(SESSION_KEY);
+        window.location.href = '/';
+    }
+
+    document.getElementById('logoutBtn').addEventListener('click', logout);
+    checkAuth();
+    renderPage();
+</script>
+</body>
+</html>
