@@ -364,8 +364,6 @@
     function renderSubscription() {
         const container = document.getElementById('subscriptionsList');
         if (!container) return;
-        const status = getExpiryStatus(SUBSCRIPTION.unix);
-        const glowClass = status === 'green' ? 'status-green' : 'status-red';
         container.innerHTML = '';
         const card = document.createElement('div');
         card.className = 'sub-card';
